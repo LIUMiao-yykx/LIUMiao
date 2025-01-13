@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign up</title>
+    <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootsnav.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: url('1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* Optional: dark overlay for better text readability */
+            z-index: 1;
+        }
+
+        .top-image {
+            position: fixed;
+            top: 20px; /* Adjust as needed */
+            left: 20px; /* Adjust as needed */
+            max-width: 300px; /* Adjust as needed */
+            z-index: 2;
+        }
+
+        .signin-content {
+            background-color: rgba(255, 255, 255, 1); /* Slightly less transparent */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 3; /* Ensure the form is above the overlay */
+        }
+
+        .signin-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .signin-content .form-group {
+            margin-bottom: 15px;
+        }
+
+        .signin-footer {
+            text-align: center;
+        }
+
+        .signin-footer p {
+            margin-top: 10px;
+        }
+
+        .signin_btn {
+            padding: 8px 16px; /* Adjust padding as needed */
+            font-size: 14px; /* Adjust font size as needed */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <img src="2.jpg" alt="Top Image" class="top-image">
+
+    <div class="signin-content">
+        <h2>注册</h2>
+        <div class="signin-form">
+            <div class="form-group">
+                <label for="username">邮箱</label>
+                <input type="email" class="form-control" id="username" placeholder="请输入邮箱@abc.com">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" class="form-control" id="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="signin-footer">
+            <button type="button" class="btn signin_btn" id="submit">注册</button>
+            <p>已经注册? <a href="signin.html">登录</a></p>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootsnav.js"></script>
+    <script src="assets/js/jquery.sticky.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        $("#submit").click(function () {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/register",
+                contentType: "application/json",
+                data: JSON.stringify({ "username": username, "password": password }),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        window.location.href = "signin.html";
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
